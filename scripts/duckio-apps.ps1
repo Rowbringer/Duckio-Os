@@ -1,8 +1,10 @@
 #requires -RunAsAdministrator
 [CmdletBinding()]
-param()
+param(
+    [string[]]$Apps
+)
 
-$apps = @(
+$defaultApps = @(
     '7zip.7zip',
     'Git.Git',
     'Microsoft.PowerShell',
@@ -11,7 +13,9 @@ $apps = @(
     'VideoLAN.VLC'
 )
 
-foreach ($id in $apps) {
+$installList = if ($Apps -and $Apps.Count -gt 0) { $Apps } else { $defaultApps }
+
+foreach ($id in $installList) {
     Write-Host "[Duckio] Installing $id"
-    winget install --id $id --silent --accept-source-agreements --accept-package-agreements
+    winget install --id $id --silent --accept-source-agreements --accept-package-agreements --disable-interactivity
 }

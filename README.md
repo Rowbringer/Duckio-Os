@@ -1,60 +1,55 @@
 # Duckio OS (Windows 11, but better)
 
-Duckio OS is a **production-minded Windows 11 customization toolkit** that builds a cleaner, faster, and more private Windows install image for real PCs.
+Duckio OS is a repeatable **Windows 11 optimization profile** designed for real physical PCs.
 
-It does this by:
-- Applying repeatable post-install tuning via PowerShell.
-- Turning off common telemetry and background noise.
-- Installing sane defaults for developer and power-user workflows.
-- Keeping full hardware compatibility by staying on top of official Windows 11 media.
+## What this project is
 
-> This repo does **not** replace the Windows kernel. It automates creation of a better Windows 11 deployment profile you can install on actual hardware.
+- A scriptable post-install profile for Windows 11.
+- A safer alternative to random debloat scripts.
+- Version-controlled system tuning with rollback support.
 
-## Goals
+## What this project is not
 
-- ✅ Runs on physical PCs (UEFI + TPM 2.0 capable hardware).
-- ✅ Deterministic setup from version-controlled scripts.
-- ✅ Reversible and auditable system changes.
-- ✅ No shady binaries; only built-in Windows tools and open package managers.
+- Not a replacement Windows kernel.
+- Not an unofficial ISO distro.
+- Not bypassing core security requirements for production machines.
 
-## Quick start
+## Features
 
-1. Download official Windows 11 ISO from Microsoft.
-2. Create a USB installer (Rufus or Media Creation Tool).
-3. Install Windows 11 normally.
-4. After first login, run an elevated PowerShell session:
+- Restore point + registry backup before making changes.
+- One-command setup via elevated PowerShell.
+- Optional strict privacy mode.
+- Optional rollback mode.
+- Optional app bootstrap with Winget.
+
+## Quick start (real PC)
+
+Open elevated PowerShell in this repo and run:
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force
 .\scripts\duckio-setup.ps1
 ```
 
-## What gets improved
+### Useful modes
 
-- Reduced startup and background bloat.
-- Telemetry minimized (without breaking updates).
-- Explorer and taskbar behavior tuned for desktop productivity.
-- Optional software bootstrap through Winget.
-- Security defaults kept on (Defender + SmartScreen + BitLocker capable).
+```powershell
+# Skip app installs
+.\scripts\duckio-setup.ps1 -SkipApps
 
-## Compatibility
+# More aggressive telemetry reduction
+.\scripts\duckio-setup.ps1 -StrictPrivacy
 
-- Windows 11 23H2 or later.
-- Secure Boot / UEFI supported.
-- Real hardware support (not VM-only).
+# Undo to backed-up defaults
+.\scripts\duckio-setup.ps1 -Rollback
+```
 
-## Safety model
+## Safety + logs
 
-- A restore point is created before major changes.
-- Registry writes are centralized and documented.
-- Each action logs to `C:\ProgramData\Duckio\duckio-setup.log`.
+- Log file: `C:\ProgramData\Duckio\duckio-setup.log`
+- Registry backup: `C:\ProgramData\Duckio\registry-backup.json`
+- Reboot after applying or rolling back.
 
-## Repository layout
+## Hardware compatibility
 
-- `scripts/duckio-setup.ps1` — main hardening and debloat script.
-- `scripts/duckio-apps.ps1` — optional app bootstrap via Winget.
-- `docs/hardware-checklist.md` — real-PC readiness checklist.
-
-## License
-
-MIT
+See `docs/hardware-checklist.md` for UEFI/TPM/Secure Boot and post-install validation requirements.
