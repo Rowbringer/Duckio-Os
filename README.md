@@ -54,6 +54,13 @@ C:\duckio\duckio-setup.ps1 -StrictPrivacy
 C:\duckio\duckio-setup.ps1 -Rollback
 ```
 
+
+## Included gaming apps
+
+By default, Duckio app bootstrap now includes:
+- Minecraft Launcher
+- Roblox
+
 ## Safety + logs
 
 - Log file: `C:\ProgramData\Duckio\duckio-setup.log`
