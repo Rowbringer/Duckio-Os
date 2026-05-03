@@ -4,7 +4,8 @@ param(
     [Parameter(Mandatory)] [string]$IsoPath,
     [Parameter(Mandatory)] [string]$UsbDiskNumber,
     [Parameter(Mandatory)] [string]$UsbDriveLetter,
-    [switch]$NoFormat
+    [switch]$NoFormat,
+    [switch]$LaunchVm
 )
 
 $ErrorActionPreference = 'Stop'
@@ -50,3 +51,8 @@ Dismount-DiskImage -ImagePath $IsoPath
 
 Write-Host '[Duckio] USB is ready.' -ForegroundColor Green
 Write-Host "Install Windows from USB, then run: C:\duckio\duckio-setup.ps1 (as Administrator)."
+
+if ($LaunchVm) {
+    Write-Host '[Duckio] Launching VM installer preview with Hyper-V...'
+    & "$PSScriptRoot\start-duckio-vm.ps1" -IsoPath $IsoPath
+}

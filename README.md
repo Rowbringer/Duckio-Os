@@ -29,6 +29,21 @@ This will:
 - Copy Windows setup files.
 - Add Duckio scripts under `E:\duckio`.
 
+
+## VM boot option (installer preview)
+
+You can also boot Duckio installer flow in a Hyper-V VM:
+
+```powershell
+.\tools\prepare-duckio-usb.ps1 -IsoPath "C:\ISO\Win11.iso" -UsbDiskNumber 3 -UsbDriveLetter E -LaunchVm
+```
+
+Or launch VM directly:
+
+```powershell
+.\tools\start-duckio-vm.ps1 -IsoPath "C:\ISO\Win11.iso" -VmName "DuckioOS-VM"
+```
+
 ## Install on a real PC
 
 1. Boot target PC from the Duckio USB.
